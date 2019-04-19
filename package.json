@@ -1,13 +1,14 @@
 {
-  "name": "EmerGence",
+  "name": "emergence",
   "version": "0.1.0",
   "description": "A Disaster Relief APP",
   "main": "index.js",
   "scripts": {
-    "dev": "node server/index.js",
-    "build": "next build",
-    "start": "NODE_ENV=production node server/index.js",
-    "startDB": "node server/startMongoDB.js"
+    "dev": "gatsby develop",
+    "build": "gatsby build",
+    "start": "gatsby serve",
+    "startDB": "node plugins/gatsby-plugin-mongo-crud/startMongoDB.js",
+    "clean": "rm -rf public && rm -rf .cache"
   },
   "repository": {
     "type": "git",
@@ -19,52 +20,45 @@
     "web",
     "app"
   ],
-  "author": "U Paul, Michael Nekrasov",
+  "author": "U Paul",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/u-paul/emergence/issues"
   },
   "homepage": "https://github.com/u-paul/emergence#readme",
   "devDependencies": {
-    "babel-eslint": "^10.x",
     "eslint": "^5.x",
     "eslint-config-prettier": "^4.x",
     "eslint-plugin-import": "^2.x",
     "eslint-plugin-jsx-a11y": "^6.x",
     "eslint-plugin-react": "^7.x",
-    "nodemon": "^1.x",
     "prettier": "^1.x"
   },
   "dependencies": {
     "@material-ui/core": "^3.x",
     "@material-ui/icons": "^3.x",
-    "@zeit/next-css": "^1.x",
-    "acorn": "^6.x",
-    "body-parser": "^1.x",
     "classnames": "^2.x",
-    "express": "^4.x",
+    "core-js": "^2.6.4",
+    "gatsby": "^2.x",
+    "gatsby-image": "^2.x",
+    "gatsby-plugin-catch-links": "^2.x",
+    "gatsby-plugin-manifest": "^2.x",
+    "gatsby-plugin-mongo-crud": "file:./plugins/gatsby-plugin-mongo-crud",
+    "gatsby-plugin-offline": "file:./plugins/gatsby-plugin-offline-modified",
+    "gatsby-plugin-react-helmet": "^3.x",
+    "gatsby-source-filesystem": "^2.x",
+    "gatsby-source-mongodb": "^2.x",
     "isomorphic-unfetch": "^3.x",
-    "jss": "latest",
+    "jss": "^9.x",
     "leaflet": "^1.x",
     "leaflet-heatmap": "^1.x",
-    "mongoose": "^5.4.9",
-    "mongoose-crudify": "^0.2.x",
-    "next": "^7.x",
     "prop-types": "latest",
+    "rc-slider": "^8.x",
     "react": "^16.x",
     "react-dom": "^16.x",
+    "react-helmet": "^5.x",
     "react-jss": "^8.x",
-    "react-webcam": "^1.x"
-  },
-  "nodemonConfig": {
-    "verbose": true,
-    "ignore": [
-      "node_modules",
-      ".next"
-    ],
-    "watch": [
-      "server/**/*"
-    ],
-    "ext": "js json"
+    "react-webcam": "^1.x",
+    "tingodb": "^0.6.1"
   }
 }

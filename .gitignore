@@ -1,6 +1,5 @@
 # Project dependencies
 .idea
-.next
 .cache
 credentials.json
 token.json
@@ -11,5 +10,5 @@ npm-debug.log
 # Build directory
 /public
 .DS_Store
-/logs/
-/data
+/db_logs
+/db_data

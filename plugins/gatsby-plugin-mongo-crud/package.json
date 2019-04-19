@@ -1,0 +1,29 @@
+{
+  "name": "gatsby-plugin-mongo-crud",
+  "description": "Gatsby plugin for creating a backend MongoDB CRUD server",
+  "version": "0.1.0",
+  "author": "Michael Nekrasov <mikrasov@gmail.com>",
+
+  "dependencies": {
+    "express": "latest",
+    "mongoose": "latest",
+    "body-parser": "latest",
+    "mongoose-crudify": "latest"
+  },
+  "devDependencies": {
+
+  },
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "mongoDB",
+    "CRUD"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "gatsby": ">=2.0.0"
+  },
+  "scripts": {
+
+  }
+}

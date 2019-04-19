@@ -38,6 +38,12 @@ Visit [localhost:9000](http://localhost:9000) to see the running application.
 
 ---  
 # Test Mapping
+To load Sample LTE Congestion data:
+<br/> Make Sure you have python3 installed
+<br> Install pandas, numpy, pymongo `pip install pandas numpy`
+<br/> start MongoD `npm run startDB` 
+<br/> `python3 plugins/db-loader-lte/load.py`
+
 To generate some sample layers, start MongoDb then run 
 <br/> `node plugins/testMapData.js`
 

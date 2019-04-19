@@ -1,5 +1,6 @@
 import React from 'react'
 import './leaflet.css'
+import { getJson } from '../../util/io'
 // Leaflet does not allow server side rendering
 // This component loads the map on page load dynamically
 
@@ -22,6 +23,35 @@ class Map extends React.Component {
     this.state = {}
 
     this.setupMap = this.setupMap.bind(this)
+    this.getMapDataFromDB = this.getMapDataFromDB.bind(this)
+  }
+
+  getMapDataFromDB(L, HM, map, layerControl) {
+    getJson("layers").then( (layers) => {
+
+      layers.map(lyr => {
+        console.log(lyr)
+
+        let layer
+        if (lyr.type === "heatmap") {
+          layer = new HM({
+            radius: lyr.radius,
+            maxOpacity: .8,
+            scaleRadius: true, // scales the radius based on map zoom
+            useLocalExtrema: false,  // if false uses the global maximum for colorization
+            latField: lyr.latField,
+            lngField: lyr.lngField,
+            valueField: lyr.valueField
+          })
+          layer.setData(lyr)
+        }
+        map.addLayer(layer)
+        layerControl.addOverlay(layer, lyr.name)
+      })
+
+    })
+
+
   }
 
   setupMap(m){
@@ -45,37 +75,15 @@ class Map extends React.Component {
         }
       )
       map.addLayer(baseLayer)
-
-      if(this.props.layers) this.props.layers.map(lyr => {
-        console.log(lyr)
-
-        let layer
-        if (lyr.type === "heatmap") {
-          layer = new HM({
-            radius: lyr.radius,
-            maxOpacity: .8,
-            scaleRadius: true, // scales the radius based on map zoom
-            useLocalExtrema: false,  // if false uses the global maximum for colorization
-            latField: lyr.latField,
-            lngField: lyr.lngField,
-            valueField: lyr.valueField
-          })
-          layer.setData(lyr)
-        }
-        //map.addLayer(layer)
-        layerControl.addOverlay(layer, lyr.name)
-
-      })
-
+      this.getMapDataFromDB(L, HM, map, layerControl)
     }
     catch (e) {
-      //console.log(e)
+      console.log(e)
       m = "Map Not supported"
     }
   }
 
-  componentWillMount() {
-  }
+  componentWillMount() {}
 
   render() {
     return(

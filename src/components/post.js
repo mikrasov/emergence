@@ -1,9 +1,8 @@
 import React from 'react'
-import classnames from 'classnames'
 
 import {Card, CardHeader, CardMedia, CardContent, Collapse, IconButton, Typography} from '@material-ui/core'
 import {ExpandMore as ExpandMoreIcon} from '@material-ui/icons'
-import { withStyles } from '@material-ui/core/styles'
+
 
 const styles = theme => ({
   card: {

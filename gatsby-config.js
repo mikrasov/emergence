@@ -18,6 +18,8 @@ module.exports = {
         icon: 'src/images/favicon.png', // This path is relative to the root of the site.
       },
     },
+    'gatsby-plugin-top-layout',
+    'gatsby-plugin-material-ui',
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -25,16 +27,14 @@ module.exports = {
         path: `${__dirname}/src/images/`,
       },
     },
+    `gatsby-transformer-json`,
     {
-      resolve: `gatsby-source-mongodb`,
+      resolve: `gatsby-source-filesystem`,
       options: {
-        dbName: `emergence`,
-        server: { address: 'localhost', port: 27017 },
-        collection: [`posts`]
-      }
+        path: `./data/`,
+      },
     },
     'gatsby-plugin-catch-links',
     `gatsby-plugin-offline-modified`,
-    `gatsby-plugin-mongo-crud`
   ],
 }

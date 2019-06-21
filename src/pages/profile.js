@@ -1,10 +1,10 @@
 import React from 'react'
 
 import {Grid, Input, InputLabel, TextField, FormControl, NativeSelect} from '@material-ui/core'
-import { withStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
+
 
 import Layout from '../components/layout'
-import { postJson } from '../util/io'
 
 const styles = theme => ({
   textField: {
@@ -37,8 +37,6 @@ class ProfilePage extends React.Component {
   }
 
   render() {
-
-    const { classes } = this.props;
 
     return (
       <Layout title={"Profile"}>
@@ -188,4 +186,4 @@ class ProfilePage extends React.Component {
   }
 }
 
-export default withStyles(styles)(ProfilePage)
+export default ProfilePage

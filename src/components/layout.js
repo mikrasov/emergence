@@ -1,19 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import classNames from 'classnames'
 import Helmet from 'react-helmet'
-import { withStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import {AppBar, Drawer, Toolbar,Typography,IconButton} from '@material-ui/core'
 import {Menu as MenuIcon, ChevronLeft as ChevronLeftIcon} from '@material-ui/icons/'
 import Divider from '@material-ui/core/Divider/Divider'
 
-import withRoot from '../util/withRoot'
 
 import Menu from './menu'
 
 const drawerWidth = 240
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
 
   root: {
     display: 'flex',
@@ -42,7 +41,7 @@ const styles = theme => ({
   pageTitle: {
     marginLeft: 24,
     [theme.breakpoints.up('lg')]: {
-      marginLeft: theme.spacing.unit * 9 + 12,
+      marginLeft: theme.spacing(21),
     },
   },
   hide: {
@@ -68,7 +67,7 @@ const styles = theme => ({
     overflowX: 'hidden',
     width: 0,
     [theme.breakpoints.up('sm')]: {
-      width: theme.spacing.unit * 9 + 1,
+      width: theme.spacing(9),
     },
     [theme.breakpoints.up('lg')]: {
       width: drawerWidth,
@@ -83,86 +82,75 @@ const styles = theme => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing.unit * 3,
+    padding: theme.spacing(3),
   },
-})
+}))
 
-class Layout extends React.Component {
-  state = {
-    open: false,
-  }
 
-  handleDrawerOpen = () => {
-    this.setState({ open: true })
-  }
 
-  handleDrawerClose = () => {
-    this.setState({ open: false })
-  }
+export default function Layout(props) {
+  const classes = useStyles()
 
-  render() {
-    const { classes, theme } = this.props
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
-    return (
-      <>
-        <Helmet
-          title="EmerGence"
+  return (
+    <>
+      <Helmet
+        title="EmerGence"
+      >
+        <html lang="en" />
+      </Helmet>
+      <div className={classes.root}>
+
+        <AppBar
+          position="fixed"
+          className={classNames(classes.appBar, {
+            [classes.appBarShift]: drawerOpen,
+          })}
         >
-          <html lang="en" />
-        </Helmet>
-        <div className={classes.root}>
+          <Toolbar disableGutters={!drawerOpen}>
+            <IconButton
+              color="inherit"
+              aria-label="Open drawer"
+              onClick={ ()=>{setDrawerOpen(true)} }
+              className={classNames(classes.menuButton, {
+                [classes.hide]: drawerOpen,
+              })}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" color="inherit" noWrap className={classes.pageTitle}>
+              {props.title || "Emergence"}
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          variant="permanent"
+          className={classNames(classes.drawer, {
+            [classes.drawerOpen]: drawerOpen,
+            [classes.drawerClose]: !drawerOpen,
+          })}
+          classes={{
+            paper: classNames({
+              [classes.drawerOpen]: drawerOpen,
+              [classes.drawerClose]: !drawerOpen,
+            }),
+          }}
+          open={drawerOpen}
+        >
+          <div className={classes.toolbar}>
+            <IconButton onClick={ ()=>{setDrawerOpen(false)} }> <ChevronLeftIcon /></IconButton>
+          </div>
+          <Divider />
+          <Menu />
+        </Drawer>
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
+          {props.children}
+        </main>
 
-          <AppBar
-            position="fixed"
-            className={classNames(classes.appBar, {
-              [classes.appBarShift]: this.state.open,
-            })}
-          >
-            <Toolbar disableGutters={!this.state.open}>
-              <IconButton
-                color="inherit"
-                aria-label="Open drawer"
-                onClick={this.handleDrawerOpen}
-                className={classNames(classes.menuButton, {
-                  [classes.hide]: this.state.open,
-                })}
-              >
-                <MenuIcon />
-              </IconButton>
-              <Typography variant="h6" color="inherit" noWrap className={classes.pageTitle}>
-                {this.props.title || "Emergence"}
-              </Typography>
-            </Toolbar>
-          </AppBar>
-          <Drawer
-            variant="permanent"
-            className={classNames(classes.drawer, {
-              [classes.drawerOpen]: this.state.open,
-              [classes.drawerClose]: !this.state.open,
-            })}
-            classes={{
-              paper: classNames({
-                [classes.drawerOpen]: this.state.open,
-                [classes.drawerClose]: !this.state.open,
-              }),
-            }}
-            open={this.state.open}
-          >
-            <div className={classes.toolbar}>
-              <IconButton onClick={this.handleDrawerClose}> <ChevronLeftIcon /></IconButton>
-            </div>
-            <Divider />
-            <Menu />
-          </Drawer>
-          <main className={classes.content}>
-            <div className={classes.toolbar} />
-            {this.props.children}
-          </main>
+      </div>
+    </>
+  )
 
-        </div>
-      </>
-    )
-  }
 }
-
-export default withRoot(withStyles(styles, { withTheme: true })(Layout))

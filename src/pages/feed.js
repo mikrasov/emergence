@@ -1,50 +1,43 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { Link } from 'gatsby'
 
 import {Fab} from '@material-ui/core'
 import {Edit as WriteIcon} from '@material-ui/icons'
-import { withStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 
 import Layout from '../components/layout'
 import Post from "../components/post"
 import {notifications} from '../util/deviceData'
-import {getJson} from "../util/io"
 
-const styles = theme => ({
+
+const useStyles = makeStyles(theme => ({
   fab: {
     position: 'absolute',
-    bottom: theme.spacing.unit * 2,
-    right: theme.spacing.unit * 2,
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
   },
-})
+}))
 
-class Feed extends React.Component {
 
-  static async getInitialProps ()  {
-    return {
-      posts: await getJson("posts")
-    }
-  }
+export default function Feed(props) {
 
-  componentDidMount(){
-    notifications()
-  }
+  const classes = useStyles()
 
-  render() {
-    const { classes } = this.props
 
-    return (
-      <Layout title={"Messages"}>
-        {
-          !(this.props.posts)?"Nothing to display": this.props.posts.map((post) =>
-            <Post key={post.id} post={post}/>
-          )
-        }
+  //Run when component mounts
+  useEffect( () => {notifications()}, [])
 
-        <Link to={"/compose"}><Fab color="secondary"   className={classes.fab}><WriteIcon/></Fab></Link>
-      </Layout>
-    )
-  }
+
+  return (
+    <Layout title={"Messages"}>
+      {
+        !(props.posts)?"Nothing to display": props.posts.map((post) =>
+          <Post key={post.id} post={post}/>
+        )
+      }
+
+      <Link to={"/compose"}><Fab color="secondary"  className={classes.fab}><WriteIcon/></Fab></Link>
+    </Layout>
+  )
+
 }
-
-export default withStyles(styles)(Feed)

@@ -1,8 +1,9 @@
 import React from 'react'
-import { withStyles } from '@material-ui/core/styles'
 import {Typography, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails,
   Input, MenuItem, InputLabel, FormControl, Select } from '@material-ui/core'
 import {ExpandMore as ExpandMoreIcon} from '@material-ui/icons'
+import { makeStyles } from '@material-ui/core/styles'
+
 import { Range } from 'rc-slider'
 import 'rc-slider/assets/index.css'
 
@@ -33,6 +34,7 @@ class MapControl extends React.Component {
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
+    console.log(event)
 
   }
   componentWillMount() {}
@@ -97,4 +99,4 @@ class MapControl extends React.Component {
   }
 }
 
-export default withStyles(styles)(MapControl)
+export default MapControl

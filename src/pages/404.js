@@ -1,6 +1,5 @@
 import React from 'react'
 import Layout from '../components/layout'
-import withRoot from '../util/withRoot'
 
 class ErrorPage extends React.Component {
 
@@ -14,4 +13,4 @@ class ErrorPage extends React.Component {
   }
 }
 
-export default withRoot(ErrorPage)
+export default ErrorPage

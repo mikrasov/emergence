@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Models = require('../server/models');
+const Models = require('./gatsby-plugin-mongo-crud/models');
 
 console.log("Loading Test Map Data")
 const db = mongoose.connect('mongodb://localhost:27017/emergence', {useNewUrlParser: true}, function(error){

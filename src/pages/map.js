@@ -3,16 +3,9 @@ import Layout from '../components/layout'
 import Map from '../components/map/map'
 import MapControls from '../components/map/controls'
 
-class MapPage extends React.Component {
 
-  render() {
-    return(
-      <Layout title={"Map"}>
-        <MapControls/>
-        <Map/>
-      </Layout>
-    )
-  }
-}
-
-export default MapPage
+export default () =>
+  <Layout title={"Map"}>
+    <MapControls/>
+    <Map/>
+  </Layout>

@@ -1,10 +1,10 @@
 import React from 'react'
 import { Link } from 'gatsby'
 
-import {Card, CardContent, CardActionArea, Typography} from '@material-ui/core'
-import { withStyles } from '@material-ui/core/styles'
+import { Card, CardContent, CardActionArea, Typography } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
 
-const styles = {
+const useStyles = makeStyles(theme => ({
   card: {
     margin: 20,
     minWidth: 100,
@@ -21,10 +21,13 @@ const styles = {
   pos: {
     marginBottom: 12,
   },
-};
+}))
 
-function SimpleCard(props) {
-  const { classes } = props;
+
+
+export default function SimpleCard(props)  {
+
+  const classes = useStyles()
 
   return (
     <Card className={classes.card}>
@@ -42,5 +45,3 @@ function SimpleCard(props) {
     </Card>
   )
 }
-
-export default withStyles(styles)(SimpleCard)
